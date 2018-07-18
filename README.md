@@ -15,6 +15,7 @@ Primechain-eKYC can be used intra-bank and inter-bank (nationally / globally).
 ### A1. Multichain version
 
 To setup the Primechain-eKYC admin node, see: http://www.primechaintech.com/setup_solution.php?code=kyc-admin
+
 To setup the Primechain-eKYC member node, see: http://www.primechaintech.com/setup_solution.php?code=kyc-member
 
 ## B. Background
