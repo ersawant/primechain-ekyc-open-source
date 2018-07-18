@@ -1,10 +1,9 @@
 #!/bin/bash
-sudo apt-get -y install pwgen gpw
 
 source config.conf
 
-rpcuser=`gpw 1 10`
-rpcpassword=`pwgen 20 1`
+rpcuser=`< /dev/urandom tr -dc A-Za-z0-9 | head -c15; echo`
+rpcpassword=`< /dev/urandom tr -dc A-Za-z0-9 | head -c40; echo`
 
 if ! id $linux_admin_user >/dev/null 2>&1; then
 	# Setting up user account
