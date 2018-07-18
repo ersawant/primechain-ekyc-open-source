@@ -1,5 +1,4 @@
 #!/bin/bash
-
 sudo apt-get -y install pwgen gpw
 
 source config.conf
@@ -288,11 +287,4 @@ echo ''
 echo ''
 echo ''
 echo ''
-
-
-
-
-
-
-
 
