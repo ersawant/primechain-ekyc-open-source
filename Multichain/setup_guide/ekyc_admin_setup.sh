@@ -1,8 +1,29 @@
 #!/bin/bash
-
 sudo apt-get -y install pwgen gpw
 
 source config.conf
+
+rpcuser=`gpw 1 10`
+rpcpassword=`pwgen 20 1`
+
+if ! id $linux_admin_user >/dev/null 2>&1; then
+	# Setting up user account
+	echo '----------------------------------------'
+	echo -e 'SETTING UP '$linux_admin_user' USER ACCOUNT:'
+	echo '----------------------------------------'
+
+	passwd=`pwgen 20 1`
+	sudo useradd -d /home/$linux_admin_user -s /bin/bash -m $linux_admin_user
+	sudo usermod -a -G sudo $linux_admin_user
+	echo $linux_admin_user":"$passwd | sudo chpasswd
+	echo "$linux_admin_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers    
+fi
+
+homedir=`su -l $linux_admin_user -c 'cd ~ && pwd'`
+
+echo '----------------------------------------'
+echo -e 'INSTALLING PREREQUISITES.....'
+echo '----------------------------------------'
 
 echo '----------------------------------------'
 echo -e 'INSTALLING Nodejs.....'
@@ -41,30 +62,8 @@ echo ''
 echo ''
 
 echo -e '----------------------------------------'
-echo -e ' Software PREREQUISITES SUCCESSFULLY SET UP!'
+echo -e 'PREREQUISITES SUCCESSFULLY SET UP!'
 echo -e '----------------------------------------'
-
-rpcuser=`gpw 1 10`
-rpcpassword=`pwgen 20 1`
-
-if ! id $linux_admin_user >/dev/null 2>&1; then
-	# Setting up user account
-	echo '----------------------------------------'
-	echo -e 'SETTING UP '$linux_admin_user' USER ACCOUNT:'
-	echo '----------------------------------------'
-
-	passwd=`pwgen 20 1`
-	sudo useradd -d /home/$linux_admin_user -s /bin/bash -m $linux_admin_user
-	sudo usermod -a -G sudo $linux_admin_user
-	echo $linux_admin_user":"$passwd | sudo chpasswd
-	echo "$linux_admin_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers    
-fi
-
-homedir=`su -l $linux_admin_user -c 'cd ~ && pwd'`
-
-echo '----------------------------------------'
-echo -e 'INSTALLING PREREQUISITES.....'
-echo '----------------------------------------'
 
 
 sudo apt-get --assume-yes update
@@ -288,4 +287,11 @@ echo ''
 echo ''
 echo ''
 echo ''
+
+
+
+
+
+
+
 
