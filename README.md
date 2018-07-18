@@ -10,14 +10,20 @@ Primechain-eKYC can be used intra-bank and inter-bank (nationally / globally).
 | Hyperledger Sawtooth | Yes  |
 | Hyperledger Fabric | Coming soon |
 
-## A. Background
+## A. Installation and setup
+
+### A1. Multichain version
+
+To setup the Primechain-eKYC admin node, see: http://www.primechaintech.com/setup_solution.php?code=kyc-admin
+To setup the Primechain-eKYC member node, see: http://www.primechaintech.com/setup_solution.php?code=kyc-member
+
+## B. Background
 
 Financial and capital markets use the KYC (Know Your Customer) system to identify "bad" customers and minimise money laundering, tax evasion and terrorism financing. 
 
 Efforts to prevent money laundering and the financing of terrorism are costing the financial sector billions of dollars. Banks are also exposed to huge penalties for failure to follow KYC guidelines. Costs aside, KYC can delay transactions and lead to duplication of effort between banks.
 
-
-## B. Primary benefits
+## C. Primary benefits
 
 1. Removes duplication of effort, automates processes and reduces compliance errors.
 
@@ -38,27 +44,27 @@ Primechain-eKYC is a permissioned-shared blockchain. It comprises:
 -	one or more member nodes (which can be used by participating entities),
 -	one or more regulator nodes
 
-## C. Third party software and components
-- bcryptjs: 2.4.3
-- body-parser: 1.18.3
-- connect-flash: 0.1.1
-- cookie-parser: 1.4.3
-- croppie: 2.6.2
-- express-handlebars:  3.0.0
-- express-session: 1.15.6
-- express-validator: 5.2.0 
-- express: 4.16.3
-- mongodb: 3.0.10
-- mongoose: 5.1.4
-- multichain 1.0.4
-- passport-local: 1.0.0
-- passport: 0.4.0 
-- sendgrid/mail: 6.2.1  
+## D. Third party software and components
+1. bcryptjs
+2. body-parser
+3. connect-flash
+4. cookie-parser
+5. express-fileupload
+6. express-handlebars
+7. express-session
+8. express-validator
+9. express
+10. mongodb
+11. mongoose
+12. multichain
+13. passport-local
+14. passport
+15. sendgrid/mail
 
-## D. License
-Primechain-eKYC is available under --- . This license does not extend to third party software and components.
+## E. License
+Primechain-eKYC is available under Apache License 2.0. This license does not extend to third party software and components.
 
-## E. List of features
+## F. List of features
 
 1. Upload records: Records can be uploaded in any format (doc, pdf, jpg etc.) upto a maximum of 10 MB per record. These records are automatically encrypted using AES symmetric encryption algorithm and the decryption keys are automatically stored in the exclusive web application of the of the uploading entity. While uploading, the following information needs to be entered - the Corporate Identity Number (CIN) of the entity to which this document relates, the document category and sub-category, a brief description and the price of the document. 
 
