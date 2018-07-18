@@ -1,0 +1,27 @@
+{
+  "name": "primechain-kyc-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "kycAdmin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Primechain Technologies Pvt. Ltd",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "*",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "randomstring": "*"
+  }
+}

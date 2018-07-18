@@ -1,0 +1,30 @@
+{
+  "name": "primechain-kyc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "kycMember.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Primechain Technologies Pvt. Ltd",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "*",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "express": "*",
+    "express-fileupload": "*",
+    "express-form-data": "*",
+    "express-handlebars": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "randomstring": "*",
+    "sendinblue-api": "*"
+  }
+}

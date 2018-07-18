@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Primechain-KYC">
+    <meta name="author" content="Primechain Technologies Pvt. Ltd.">
+
+    <title>{{#if title}} {{title}} {{else}} Primechain-KYC {{/if}}
+    </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/bs/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <body>
+        <div id="wrapper">
+            <!-- Navigation -->
+            {{#if user}}
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Primechain-KYC</a>
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <div class="col-md-12">
+                                    <i class="fa fa-user fa-fw"></i> Name: {{user.username}}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="col-md-12">
+                                    <i class="fa fa-envelope fa-fw"></i> Email: {{user.email}}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="col-md-12">
+                                    <i class="fa fa-phone fa-fw"></i> Cell: {{user.cell}}
+                                </div>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <div class="col-md-12">
+                                    <a href="/user/change_password" style="padding:0px;">
+                                        <i class="fa fa-key fa-fw"></i> Change password</a>
+                                </div>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <div class="col-md-12">
+                                    <a href="/user/logout" style="padding:0px;">
+                                        <i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            {{#if menus}} {{#each menus}} {{!--
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="{{category}}"> --}}
+                                <li>
+                                    {{#if category_link}}
+                                    <a href="{{category_link}}">
+                                        <i class="fa fa-{{category_icon}} fa-fw"></i> {{category}}</a>
+                                    {{else}}
+                                    <a href="#">
+                                        <i class="fa fa-{{category_icon}}"></i> {{category}}
+                                        <span class="fa arrow"></span>
+                                    </a>
+                                    {{#if roles}}
+                                    <ul class="nav nav-second-level">
+                                        {{#each roles}} {{#displayLink role_display}}
+                                        <li>
+                                            <a href='{{role_code}}'> {{role_title}}</a>
+                                        </li>
+                                        {{/displayLink}} {{/each}}
+                                    </ul>
+                                    {{/if}}
+                                </li>
+                                {{/if}} {{/each}} {{/if}}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            {{/if}} {{{body}}}
+        </div>
+
+        <!-- jQuery -->
+        <script src="/vendor/jquery/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+        <!-- DataTables JavaScript -->
+        <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="/vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="/bs/dist/js/sb-admin-2.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+            });
+
+            function toggleDownloadContent(ele) {
+                var $downloadtd = $(ele).closest("td");
+                var $downloadContent = $downloadtd.find(".download-content");
+                var $downloadBtn = $downloadtd.find(".download-btn");
+                if ($downloadContent.is(":visible")) {
+                    $downloadContent.hide();
+                    $downloadBtn.show();
+                }
+                else {
+                    $downloadContent.show();
+                    $downloadBtn.hide();
+                }
+            }
+
+            $('#kyc_code_categories').change(function () {
+                if ($(this).val() != '') {
+                    var input_data = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/user/get_document_categories",
+                        success: function (data) {
+                            $('#kyc_sub_categories').contents().remove();
+                            $.each(data, function (i, value) {
+                                $('#kyc_sub_categories').append($('<option>').text(value).attr('value', i));
+                            });
+                        },
+                        error: function (res) {
+                            console.error(res);
+                            alert("Error occured while retriving the categories");
+                        },
+                        data: input_data
+                    });
+                }
+                else {
+                    alert("Please select an categories");
+                }
+            });
+
+
+        </script>
+
+    </body>
+
+</html>

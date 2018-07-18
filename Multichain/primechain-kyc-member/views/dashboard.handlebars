@@ -1,0 +1,154 @@
+<div id="page-wrapper">
+    <div class="row">
+        <h1 class="page-header">{{title}}</h1>
+        {{#if user}}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>{{title}}</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel-body">
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="panel panel-red">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-edit fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge">{{records}}</div>
+                                                <div>Records</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/user/kyc_corporate_my_uploaded_records">
+                                        <div class="panel-footer">
+                                            <span class="pull-left" style="color:#d9534f">My Uploaded Records</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="panel panel-yellow">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-users fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge">{{members}}</div>
+                                                <div>Whitelisted by me</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/user/kyc_corporate_manage_whitelist">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Manage whitelist</span>
+                                            <span class="pull-right">
+                                                <i class="fa fa-arrow-circle-right"></i>
+                                            </span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <table class='table'>
+                                    <thead>
+                                        <tr class='success'>
+                                            <th>#</th>
+                                            <th>Field</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class='info'>
+                                            <td>1</td>
+                                            <td>Name:</td>
+                                            <td>
+                                                {{user.username}}
+                                            </td>
+                                        </tr>
+                                        <tr class='info'>
+                                            <td>2</td>
+                                            <td>Email:</td>
+                                            <td>
+                                                {{user.email}}
+                                            </td>
+                                        </tr>
+                                        <tr class='success'>
+                                            <td>3</td>
+                                            <td>Designation:</td>
+                                            <td>
+                                                {{user.designation}}
+                                            </td>
+                                        </tr>
+                                        <tr class='success'>
+                                            <td>4</td>
+                                            <td>Organization:</td>
+                                            <td>
+                                                {{user.organisation}}
+                                            </td>
+                                        </tr>
+                                        <tr class='success'>
+                                            <td>5</td>
+                                            <td>Public address:</td>
+                                            <td>
+                                                {{user.user_address}}
+                                            </td>
+                                        </tr>
+                                </table>
+                            </div>
+
+                            {{#if loginDetails}}
+                            <div class='col-lg-5'>
+                                <div class='panel panel-yellow'>
+                                    <div class='panel-heading'>
+                                        Previous login
+                                    </div>
+                                    <div class='panel-body'>
+                                        <p>IP address:
+                                            <br/>{{loginDetails.ip}}</p>
+                                        <p>Browser: {{loginDetails.browser}}</p>
+                                        <p>Timestamp: {{loginDetails.timestamp}}</p>
+                                    </div>
+                                    <div class='panel-footer'>
+                                        Timestamp is ISO formatted date
+                                    </div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <div class='col-lg-5'>
+                                <div class='panel panel-yellow'>
+                                    <div class='panel-heading'>
+                                        Welcome to Primechain-KYC
+                                    </div>
+                                    <div class='panel-body'>
+                                        Since this is your first login to Primechain-KYC, take some time to familiarise yourself with your dashboard as well as the
+                                        navigation menu on the left.
+                                        <br/>
+                                        <br/>To logout, click on the
+                                        <i class='fa fa-user fa-fw'></i> icon on the top right corner of the screen.
+                                    </div>
+                                    <div class='panel-footer'>
+                                        We recommend that you
+                                        <a href='/user/change_password'>Change your password</a>.
+                                    </div>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
