@@ -1,48 +1,6 @@
 #!/bin/bash
 
-sudo apt-get -y install pwgen gpw
-
 source config.conf
-
-echo '----------------------------------------'
-echo -e 'INSTALLING Nodejs.....'
-echo '----------------------------------------'
-
-curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-echo '----------------------------------------'
-echo -e 'INSTALLING PM2.....'
-echo '----------------------------------------'
-
-sudo npm install -g pm2
-
-echo '----------------------------------------'
-echo -e 'INSTALLING MONGODB.....'
-echo '----------------------------------------'
-
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-echo '----------------------------------------'
-echo -e 'STARTING MONGODB.....'
-echo '----------------------------------------'
-
-sudo systemctl start mongod
-
-echo ''
-echo ''
-echo '----------------------------------------'
-echo ''
-echo ''
-echo ''
-echo ''
-
-echo -e '----------------------------------------'
-echo -e ' Software PREREQUISITES SUCCESSFULLY SET UP!'
-echo -e '----------------------------------------'
 
 seed_node_ip=$1
 rpcuser=`< /dev/urandom tr -dc A-Za-z0-9 | head -c15; echo`
