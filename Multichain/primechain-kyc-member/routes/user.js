@@ -105,6 +105,8 @@ router.get('/kyc_corporate_search_record', common_utility.isLoggedIn, kycSearchC
 
 router.post('/kyc_corporate_search_record', common_utility.isLoggedIn, kycSearchController.post_search_record);
 
+router.post('/api/authorize_view_document', kycSearchController.get_authorize_view_document);
+
 router.get('/kyc_corporate_manage_whitelist', common_utility.isLoggedIn, kycManageWhiteListController.get_whitelist_page);
 
 router.post('/kyc_corporate_save_whitelist', common_utility.isLoggedIn, kycManageWhiteListController.post_whitelist);
