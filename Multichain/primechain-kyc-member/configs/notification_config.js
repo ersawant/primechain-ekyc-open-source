@@ -3,5 +3,5 @@ module.exports =  {
     IP_ADDRESS: "localhost",
     LISTEN_PORT: "2309",
     APP_DIR: "",
-    SENDGRID_API_KEY: 'YOUR-API-KEY'
+    SENDGRID_API_KEY: 'YOUR-API-KEY',
 }
