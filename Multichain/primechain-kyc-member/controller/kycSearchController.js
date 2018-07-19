@@ -1,5 +1,4 @@
 const dataStorage = require('../BlockchainLib/storage');
-const formModel = require('../model/form');
 const config = require('../configs/blockchain_config');
 const whiteListModel = require('../model/whitelist');
 
@@ -72,11 +71,52 @@ module.exports = {
                                                             else {
                                                                 whiteListModel.getMemberDetailsByAddress(publisher_address, (err, member_details) => {
                                                                     if (err) _reject(err);
+
                                                                     if (member_details) {
                                                                         _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, isWhiteListed: true });
                                                                     }
                                                                     else {
-                                                                        _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, isWhiteListed: false });
+                                                                        let member_api_url = publisher_data["member_api_url"];
+                                                                        let parsed_url = common_utility.parseUrl(member_api_url);
+
+                                                                        let options = {
+                                                                            hostname: parsed_url.hostname,
+                                                                            port: parsed_url.port,
+                                                                            path: '/user/api/authorize_view_document',
+                                                                            method: 'POST',
+                                                                            headers: {
+                                                                                'Content-Type': 'application/json'
+                                                                            }
+                                                                        };
+
+                                                                        let authenticate_req = http.request(options, (authenticate_res) => {
+                                                                            let responseString = "";
+
+                                                                            authenticate_res.on('data', (data) => {
+                                                                                responseString += data;
+                                                                            });
+
+                                                                            authenticate_res.on('end', () => {
+                                                                                let result = JSON.parse(responseString);
+
+                                                                                if (result, result["success"] && result["is_authorized"]) {
+
+                                                                                    let isWhiteListed = result["is_authorized"];
+
+                                                                                    _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, isWhiteListed: isWhiteListed });
+                                                                                }
+                                                                                else {
+                                                                                    _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, isWhiteListed: false });
+                                                                                }
+                                                                            });
+                                                                        });
+
+                                                                        let authenticate_req_data = {
+                                                                            purchaser_address: req.user.user_address,
+                                                                        };
+
+                                                                        authenticate_req.write(JSON.stringify(authenticate_req_data));
+                                                                        authenticate_req.end();
                                                                     }
                                                                 });
                                                             }
@@ -110,7 +150,6 @@ module.exports = {
                         // Render the view search docment page with parameters.
                         res.render('view_record_details', { "data": records, cin: req.body.cin });
                     }).catch((err) => {
-                        console.error(err);
                         // throw error if any of the api call fails
                         return next(err);
                     });
@@ -123,6 +162,26 @@ module.exports = {
         } catch (error) {
             // If any error occured in the try block the catch block will handle the request.
             res.render('view_record_details', { error_msg: error });
+        }
+    },
+
+    get_authorize_view_document: (req, res, next) => {
+        try {
+            let purchaser_address = req.body.purchaser_address;
+
+            whiteListModel.getMemberDetailsByAddress(purchaser_address, (err, records) => {
+                if (err) { res.json({ "success": false, is_authorized: false, "msg": "Unable to process request" }); }
+                
+                if (records != null) {
+                    res.json({ "success": true, "is_authorized": true });
+                }
+                else {
+                    res.json({ "success": true, "is_authorized": false });
+                }
+            });
+        }
+        catch (error) {
+            res.json({ "success": false, "msg": error });
         }
     }
 }
