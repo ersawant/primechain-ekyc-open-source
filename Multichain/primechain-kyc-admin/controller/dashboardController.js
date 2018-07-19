@@ -28,8 +28,8 @@ module.exports = {
                     dataStorage.listStreamKeys(config["STREAMS"]["KYC_MEMBER_MASTERLIST_STREAM"], (err, result) => {
                         if (err) { return next(err); }
                         // Checks if the result is true and its length.
-                        if (result && result.length) {
-                            var members = [];
+                        if (result) {
+                            let members = [];
                             // We are iterating each result with async function call.
                             async.forEach(result, function (item, callback) {
                                 // Querying to blockchain to get data fo the members.
@@ -50,13 +50,14 @@ module.exports = {
                             }, (err) => {
                                 if (err) { return next(err); }
 
-                                let members_count = members.length;
+                                let members_count = (members) ? members.length : 0;
+                                
                                 dataStorage.listStreamItems(config["STREAMS"]["KYC_DATA_STREAM"], (err, items) => {
                                     if (err) { return next(err); }
 
-                                    let records = items.length;
+                                    let records = (items) ? items.length : 0;
 
-                                    loginModel.getloginDetailsByEmail(req.user.emails, (err, loginDetails) => {
+                                    loginModel.getloginDetailsByEmail(req.user.email, (err, loginDetails) => {
                                         if (err) { return next(err); }
 
                                         if (loginDetails != null) {
