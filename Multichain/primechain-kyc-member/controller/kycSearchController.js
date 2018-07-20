@@ -2,7 +2,7 @@ const dataStorage = require('../BlockchainLib/storage');
 const config = require('../configs/blockchain_config');
 const whiteListModel = require('../model/whitelist');
 const common_utility = require('../lib/common_utility');
-const http = require('hhtp');
+const http = require('http');
 
 module.exports = {
     get_search_record_page: (req, res, next) => {
