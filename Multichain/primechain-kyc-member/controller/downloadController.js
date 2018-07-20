@@ -5,6 +5,7 @@ const common_utility = require('../lib/common_utility');
 module.exports = {
     download_document: (req, res, next) => {
         try {
+            let result = common_utility.hex2json(req.body.key);
             // Querying the data from the blockchain
             dataStorage.getStreamItem(config["STREAMS"]["KYC_RECORD_STREAM"], req.body.document_txid, (err, data_info) => {
                 if (err) { return next(err); }
