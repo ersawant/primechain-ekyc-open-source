@@ -3,6 +3,7 @@ const config = require('../configs/blockchain_config');
 const whiteListModel = require('../model/whitelist');
 const common_utility = require('../lib/common_utility');
 const http = require('http');
+const formModel = require("../model/form");
 
 module.exports = {
     get_search_record_page: (req, res, next) => {
@@ -92,20 +93,21 @@ module.exports = {
                                                                 authenticate_res.on('end', () => {
                                                                     let result = JSON.parse(responseString);
 
-                                                                    if (result, result["success"]) {
+                                                                    if (result && result["success"]) {
 
                                                                         let isWhiteListed = result["is_authorized"];
 
-                                                                        _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, isWhiteListed: isWhiteListed });
+                                                                        _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, key: result["key"], isWhiteListed: isWhiteListed });
                                                                     }
                                                                     else {
-                                                                        _resolve(null);
+                                                                        _resolve({ "time": time, "date": date, timestamp: timeStamp, "owner": publisher_data["member_name"], "metadata": document_data["metadata"], "categories": kyc_cat[document_data["kyc_code_categories"]], "sub_categories": kyc_code[document_data["kyc_sub_categories"]], "document_txid": document_txid, "member_api_url": publisher_data["member_api_url"], publisher_address: publisher_address, isWhiteListed: false });
                                                                     }
                                                                 });
                                                             });
 
                                                             let authenticate_req_data = {
                                                                 purchaser_address: req.user.user_address,
+                                                                document_txid: document_txid
                                                             };
 
                                                             authenticate_req.write(JSON.stringify(authenticate_req_data));
@@ -157,15 +159,33 @@ module.exports = {
     get_authorize_view_document: (req, res, next) => {
         try {
             let purchaser_address = req.body.purchaser_address;
+            let document_txid = req.body.document_txid;
 
             whiteListModel.getMemberDetailsByAddress(purchaser_address, (err, records) => {
                 if (err) { res.json({ "success": false, is_authorized: false, "msg": "Unable to process request" }); }
 
                 if (records != null) {
-                    res.json({ "success": true, "is_authorized": true });
+
+                    formModel.getEncryptionKeyByDocumentTxid(document_txid, (err, form_details) => {
+                        if (err) { res.json({ "success": false, is_authorized: false, "msg": "Unable to process request" }); }
+
+                        if (form_details) {
+                            let key_json = {
+                                password: form_details["password"],
+                                iv: form_details["iv"]
+                            };
+
+                            let key_hex = common_utility.json2hex(key_json);
+
+                            res.json({ "success": true, is_authorized: true, key: key_hex });
+                        }
+                        else {
+                            res.json({ "success": false, is_authorized: false, "msg": "Unable to process request" });
+                        }
+                    });
                 }
                 else {
-                    res.json({ "success": true, "is_authorized": false });
+                    res.json({ "success": false, is_authorized: false });
                 }
             });
         }
