@@ -75,6 +75,8 @@ Primechain-eKYC is available under Apache License 2.0. This license does not ext
 
 ## G. How it works?
 
+![Dashboard](http://www.primechaintech.com/images/open_source/1_user_dashboard.png)
+
 ### G1. Uploading a record 
 When a new record is uploaded to the blockchain, the following information must be provided:
 
@@ -104,6 +106,15 @@ Sample output:
       initialisation_vector: FAaZB6MuHIuX
     }
 
+![Uploading a record](http://www.primechaintech.com/images/open_source/2_upload_record.png)
+
 ### G2. Whitelisting entities
 
+![Whitelisting entities](http://www.primechaintech.com/images/open_source/5_whitelist.png)
+
+
 ### G3. Searching for and downloading records
+
+![Searching for a record](http://www.primechaintech.com/images/open_source/3_search_record.png)
+
+![Searching for a record](http://www.primechaintech.com/images/open_source/4_search_record.png)
