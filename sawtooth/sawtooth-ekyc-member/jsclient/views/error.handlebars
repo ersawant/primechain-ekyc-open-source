@@ -1,0 +1,19 @@
+{{#if user}}
+<div id="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <h1>{{message}}</h1>
+            <hr>
+            <h3>{{status}}</h3>
+        </div>
+    </div>
+</div>
+{{else}}
+<div class="container">
+    <div class="row">
+        <h1>{{message}}</h1>
+        <hr>
+        <h3>{{status}}</h3>
+    </div>
+</div>
+{{/if}}

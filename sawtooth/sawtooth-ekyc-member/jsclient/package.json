@@ -1,0 +1,43 @@
+{
+  "name": "sawtooth-simplewallet",
+  "version": "1.0.0",
+  "description": "A frontend client for simplewallet application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node moneyMember.js"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@sendgrid/mail": "*",
+    "archiver": "*",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "compression": "*",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "crypto": "*",
+    "express": "*",
+    "express-fileupload": "*",
+    "express-form-data": "*",
+    "express-handlebars": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
+    "imagemagick": "^0.1.3",
+    "moment": "^2.22.1",
+    "mongodb": "*",
+    "mongoose": "*",
+    "multer": "^1.3.1",
+    "node-fetch": "^2.1.2",
+    "nodemon": "^1.17.5",
+    "passport": "*",
+    "passport-local": "*",
+    "randomstring": "*",
+    "sawtooth-sdk": "^1.0.2",
+    "sendinblue-api": "*",
+    "text-encoding": "^0.6.4",
+    "unix-timestamp": "*"
+  }
+}

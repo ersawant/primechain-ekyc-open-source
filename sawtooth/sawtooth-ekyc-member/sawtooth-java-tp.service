@@ -1,0 +1,10 @@
+[Unit]
+Description=Sawtooth JAVA TP Service
+
+[Service]
+WorkingDirectory = /home/pcuser/sawtooth/javaprocessor
+ExecStart=/home/pcuser/sawtooth/javaprocessor/build_java_processor.sh
+
+[Install]
+WantedBy=multi-user.target
+

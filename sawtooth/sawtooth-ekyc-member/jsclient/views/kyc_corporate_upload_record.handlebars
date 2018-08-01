@@ -1,0 +1,85 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{title}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>{{title}}</h4>
+                </div>
+                <div class="panel-body">
+                    {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                    {{/if}} {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                    {{/if}}
+                    <div class="col-md-12">
+                        <form action="/user/kyc_corporate_upload_record" method="post" enctype="multipart/form-data">
+
+                            <div class='alert alert-info'>
+                                <div class='form-group'>
+                                    <label>1. Corporate Identity Number (CIN) *</label>
+                                    <br>
+                                    <br>
+                                    <input class="form-control" name="kyc_cin" required="required" type="text">
+                                </div>
+                            </div>
+
+                            <div class='alert alert-info'>
+                                <div class='form-group'>
+                                    <label>2. Document category *</label>
+                                    <br>
+                                    <br> {{#if cases}}
+                                    <select class="form-control" id="kyc_code_categories" name="kyc_code_categories" required="required">
+                                        <option></option>
+                                        {{#each cases}}
+                                        <option value={{@key}}>{{this}}</option>
+                                        {{/each}}
+                                    </select>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class='alert alert-info'>
+                                <div class='form-group'>
+                                    <label>3. Document sub category *</label>
+                                    <br>
+                                    <br>
+                                    <select class="form-control" id="kyc_sub_categories" name="kyc_sub_categories" required="required">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class='alert alert-info'>
+                                <div class='form-group'>
+                                    <label>4. Brief description of the document *</label>
+                                    <br>
+                                    <br>
+                                    <textarea class="form-control" name="kyc_document_metadata" rows="3" required="required"></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class='alert alert-warning'>
+                                <div class='form-group'>
+                                    <label>5. Upload the document *</label>
+                                    <br>
+                                    <br>
+                                    <input class="form-control" name="document" required="required" type="file">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-md">Upload</button>&nbsp;
+                            <button type="reset" class="btn btn-danger btn-md">Reset</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

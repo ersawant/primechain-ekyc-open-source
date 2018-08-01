@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="header clearfix">
+        <h3 class="text-muted">Primechain Technologies</h3>
+    </div>
+</div>
+<hr>
+<div class="container"> {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}} {{#if errors}} {{#each errors}}
+    <div class="alert alert-danger">{{msg}}</div>
+    {{/each}} {{/if}}
+    <div class="login-panel panel panel-primary" style="margin-top: 25px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">Member Sign Up</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <form action="/register" method="POST">
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>1. Name *</label>
+                                <input name="username" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>2. Email address *</label>
+                                <input name="email" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>3. Designation *</label>
+                                <input name="designation" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>4. Organisation *</label>
+                                <input name="member_name" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>5. Corporate Identity Number (CIN) *</label>
+                                <input name="member_cin" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>6. Website Address *</label>
+                                <input name="member_website_address" class="form-control" autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>7. API URL *</label>
+                                <input name="member_api_url" class="form-control" id="api_url" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label>8. Cell number *</label>
+                                <br/>
+                                <input name="cell" class="form-control" size=10 autocomplete="off">
+                                <p class="help-block alert alert-danger">Enter in this format: 91xxxxxxxxxx.
+                                    <br/>Do not use any symbols such as +, - </p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="alert alert-warning">
+                        <strong>Note:</strong>
+                        <br/>
+                        <br/>
+                        <ol>
+                            <li>All fields are compulsory.</li>
+                            <br/>
+                            <li>Enter cell number in this format:
+                                <code>91xxxxxxxxxx</code>. Do not use any symbols such as
+                                <code>+</code>,
+                                <code>-</code>
+                            </li>
+                        </ol>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    console.log(window.location.origin);
+    document.getElementById("api_url").value = window.location.origin;
+</script>
