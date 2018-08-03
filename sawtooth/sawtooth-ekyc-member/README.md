@@ -15,8 +15,7 @@ The user is identified by a user CIN and a corresponding public key. The kyc doc
 The application is built in two parts:
 1. The client application written in Python, written in two parts: _client.py file representing the backend stuff and the _cli.py representing the frontend stuff. The example is built by using the setup.py file located in one directory level up.
 
-2. The Transaction Processor is written in C++11 using c++-sawtooth-sdk. It comes with its CMake files for build. The Transaction Processor is also available in Java and Python.
+2. The Transaction Processor is written in Java using sawtooth-sdk. The Transaction Processor is also available in C++ and Python.
 
-**NOTE**
-
-The client is also written in Javascript using node.js. The `app.js` is the main javascript file from where the `main` function call occurs. Handlebars are used for templating, client related CSS and JavaScript code is written in public folder and server related files are written in router/ folder. Running the default docker-compose.yaml file launches the client, which is accessible at `localhost:3000`.
+**NOTE:**
+The preferred OS environment is Ubuntu 16.04.3 LTS x64.
